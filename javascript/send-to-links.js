@@ -34,39 +34,39 @@ $(document).ready(function () {
         container.find('.EXLTabHeaderButtonSendTo').css(liCSS);
         container.find('.EXLTabHeaderButtonSendToList').css(linksContainerCSS);
         container.find('li span').css(iconCSS);
-        container.find('.EXLButtonSendToMyShelfAdd a').click(function (event) {
+        container.find('.EXLButtonSendToMyShelfAdd a').on('click touchstart', function (event) {
             event.preventDefault();
             return eshelfCreate(this, recordID, 'false', scopes, "" + index);
         });
-        container.find('.EXLButtonSendToMyShelfRemove a').click(function (event) {
+        container.find('.EXLButtonSendToMyShelfRemove a').on('click touchstart', function (event) {
             event.preventDefault();
             return eshelfRemove(this, recordID, 'false', scopes, "" + index);
         });
-        container.find('.EXLButtonSendToMail a').click(function (event) {
+        container.find('.EXLButtonSendToMail a').on('click touchstart', function (event) {
             event.preventDefault();
             return sendPrintPopOut(this);
         });
-        container.find('.EXLButtonSendToPrint a').click(function (event) {
+        container.find('.EXLButtonSendToPrint a').on('click touchstart', function (event) {
             event.preventDefault();
             return sendPrintPopOut(this);
         });
-        container.find('.EXLButtonSendToPermalink a').click(function (event) {
+        container.find('.EXLButtonSendToPermalink a').on('click touchstart', function (event) {
             event.preventDefault();
             return openPermaLinkLbox('permalink', "docId=" + recordID + "&amp;vid=" + vid + "&amp;fn=permalink", "" + (index - 1), recordID);
         });
-        container.find('.EXLButtonSendToCitation a').click(function (event) {
+        container.find('.EXLButtonSendToCitation a').on('click touchstart', function (event) {
             event.preventDefault();
             return openCitationLbox("" + (index - 1), recordID);
         });
-        container.find('.EXLButtonSendToEndNote a').click(function (event) {
+        container.find('.EXLButtonSendToEndNote a').on('click touchstart', function (event) {
             event.preventDefault();
             return pushto('EndNote', "" + index, 'false', recordID);
         });
-        container.find('.EXLButtonSendToRefWorks a').click(function (event) {
+        container.find('.EXLButtonSendToRefWorks a').on('click touchstart', function (event) {
             event.preventDefault();
             return pushto('RefWorks', "" + index, 'false', recordID);
         });
-        container.find('.EXLButtonSendToRIS a').click(function (event) {
+        container.find('.EXLButtonSendToRIS a').on('click touchstart', function (event) {
             event.preventDefault();
             return pushto('RISPushTo', "" + index, 'false', recordID);
         });
@@ -118,10 +118,10 @@ $(document).ready(function () {
     };
     return $(document).ready(ready);
 });
-
+// extra functions loading at window load
 $(window).load(function () {
 
-
+    //click opens menu
     $('.EXLTabHeaderButtonSendTo').click(function (event) {
         event.preventDefault();
 
@@ -137,7 +137,16 @@ $(window).load(function () {
 
 
     });
+    //end click opens menu
 
+    //click hides menu
+    $(document).on('click touchstart', function (event) {
+
+        $('.EXLTabHeaderButtonSendToList').hide();
+    });
+    //end click hides menu
+
+    //hide FRBR results
     $('.EXLResultAvailability').each(function () {
 
         if ($(this).css('display') == 'none') {
@@ -145,10 +154,4 @@ $(window).load(function () {
         }
 
     });
-
-
-
-    $(document).on("click touchstart", function (event) {
-        $('.EXLTabHeaderButtonSendToList').hide();
-    });
-});
+    //end hide FRBR results
